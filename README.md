@@ -14,7 +14,7 @@ If you use this software in your research, please cite our publications:
 ## Packages
 
 * [train](train) contains tools for training the network for semantic segmentation.
-* [eval](eval) contains tools for evaluating/visualizing the network.
+* [eval](eval) contains tools for evaluating/visualizing the network's output.
 * [trained_models](trained_models) Contains the trained models used in the papers.
 
 ## Requirements
