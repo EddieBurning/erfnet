@@ -6,7 +6,7 @@ This code is a toolbox that uses Torch library for training and evaluating the E
 
 If you use this software in your research, please cite our publications:
 
-**"Efficient ConvNet for Real-time Semantic Segmentation"**, E. Romera, J. M. Alvarez, L. M. Bergasa and R. Arroyo, IEEE Intelligent Vehicles Symposium (IV), June 2017.
+**"Efficient ConvNet for Real-time Semantic Segmentation"**, E. Romera, J. M. Alvarez, L. M. Bergasa and R. Arroyo, IEEE Intelligent Vehicles Symposium (IV), June 2017. [accepted for presentation]
 
 **"ERFNet: Efficient Residual Factorized ConvNet for Real-time Semantic Segmentation"**, E. Romera, J. M. Alvarez, L. M. Bergasa and R. Arroyo, paper extension for T-ITS journal **[currently under review]**.
 
