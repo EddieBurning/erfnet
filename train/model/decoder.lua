@@ -40,7 +40,7 @@ normvalue = 1.10	--Value used in the LOSS for class balancing
 
 -- return package:
 return {
-   model = model2multigpu(model),
-   loss = require './loss_general',
+    model = model2multigpu(model),
+    loss = require './loss_general',
 }
 

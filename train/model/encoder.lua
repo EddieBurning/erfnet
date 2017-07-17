@@ -26,10 +26,10 @@ end
 
 model:add( downsampler (64,128,3,drop,false))   -- 1/8 size
 for i = 1,2 do
-   model:add( non_bt_1D (128, 128, 3, drop, prelus, 2))	 --dilated 2
-   model:add( non_bt_1D (128, 128, 3, drop, prelus, 4))   --dilated 4
-   model:add( non_bt_1D (128, 128, 3, drop, prelus, 8))   --dilated 8
-   model:add( non_bt_1D (128, 128, 3, drop, prelus, 16))  --dilated 16
+    model:add( non_bt_1D (128, 128, 3, drop, prelus, 2))	 --dilated 2
+    model:add( non_bt_1D (128, 128, 3, drop, prelus, 4))   --dilated 4
+    model:add( non_bt_1D (128, 128, 3, drop, prelus, 8))   --dilated 8
+    model:add( non_bt_1D (128, 128, 3, drop, prelus, 16))  --dilated 16
 end
 model:add(cudnn.SpatialConvolution(128, #classes, 1, 1))
 
@@ -42,7 +42,7 @@ normvalue = 1.2	--Value used in the LOSS for class balancing
 
 -- return package:
 return {
-   model = model2multigpu(model),
-   loss = require './loss_general',
+    model = model2multigpu(model),
+    loss = require './loss_general',
 }
 

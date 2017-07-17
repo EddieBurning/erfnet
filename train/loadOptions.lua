@@ -9,31 +9,31 @@ opt = opts.parse(arg)
 
 ------------------------------------------------------------------------
 if (opt.decoder) then 
-   print ('DECODER MODE')
-   opt.labelHeight = opt.imHeight
-   opt.labelWidth = opt.imWidth
+    print ('DECODER MODE')
+    opt.labelHeight = opt.imHeight
+    opt.labelWidth = opt.imWidth
 else
-   print ('ENCODER MODE')
-   opt.labelHeight = opt.imHeight * 0.125
-   opt.labelWidth = opt.imWidth * 0.125
+    print ('ENCODER MODE')
+    opt.labelHeight = opt.imHeight * 0.125
+    opt.labelWidth = opt.imWidth * 0.125
 end
 
 local saveName = opt.imWidth .. 'x' .. opt.imHeight .. '/'
 if opt.customSave ~= '' then
-   saveName = saveName .. opt.customSave
+    saveName = saveName .. opt.customSave
 else
-   assert (false, 'ERROR: YOU MUST SPECIFY A NAME FOR THIS TRAINING SAVE FOLDER')
+    assert (false, 'ERROR: YOU MUST SPECIFY A NAME FOR THIS TRAINING SAVE FOLDER')
 end
 opt.save = paths.concat(opt.save, saveName)
 
 
 if (opt.decoder) then
-   if (opt.CNNEncoder=='') then opt.CNNEncoder = opt.save .. '/enc/model-bestiou.net' end
-   opt.save = opt.save .. '/dec'
-   opt.model = opt.model .. '/decoder.lua'
+    if (opt.CNNEncoder=='') then opt.CNNEncoder = opt.save .. '/enc/model-bestiou.net' end
+    opt.save = opt.save .. '/dec'
+    opt.model = opt.model .. '/decoder.lua'
 else
-   opt.save = opt.save .. '/enc'
-   opt.model = opt.model .. '/encoder.lua'  
+    opt.save = opt.save .. '/enc'
+    opt.model = opt.model .. '/encoder.lua'  
 end
 
 paths.mkdir(opt.save)
