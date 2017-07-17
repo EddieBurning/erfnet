@@ -11,14 +11,14 @@ require 'cutorch'
 local opts = {}
 lapp = require 'pl.lapp'
 function opts.parse(arg)
-   local opt = lapp [[
+    local opt = lapp [[
 
-   Command line options:
-   -m, --model       (default 'erfnet_pretrained')      name of network model to profile
-   -p, --platform    (default cudaHalf)     Select profiling platform (cpu|cuda|cudaHalf)
-   -r, --res         (default 1x3x512x1024) Input image resolution Channel x Width x Height
- ]]
-   return opt
+    Command line options:
+    -m, --model       (default 'erfnet_pretrained')      name of network model to profile
+    -p, --platform    (default cudaHalf)     Select profiling platform (cpu|cuda|cudaHalf)
+    -r, --res         (default 1x3x512x1024) Input image resolution Channel x Width x Height
+    ]]
+    return opt
 end
 opt = opts.parse(arg)
 print (opt.model)
@@ -44,26 +44,26 @@ if torch.typename(model) == 'nn.DataParallelTable' then model = model:get(1) end
 
 --Remove batch-normalization and dropout layers to evaluate forward time, as BN layers can be in fact absorbed by the conv layers by manipulating its weights and biases (https://github.com/e-lab/torch-toolbox/tree/master/BN-absorber)
 model:apply(function(module)
-   if module.modules then
-      for i,submodule in ipairs(module.modules) do
-         if torch.typename(submodule):match('cudnn.SpatialBatchNormalization') or 
-				torch.typename(submodule):match('nn.SpatialBatchNormalization')	then
-				module:remove(i)
-         end
-      end
-      for i,submodule in ipairs(module.modules) do
-         if torch.typename(submodule):match('nn.SpatialDropout')	then
-				module:remove(i)
-         end
-      end
-   end
+    if module.modules then
+        for i,submodule in ipairs(module.modules) do
+            if torch.typename(submodule):match('cudnn.SpatialBatchNormalization') or 
+                torch.typename(submodule):match('nn.SpatialBatchNormalization')	then
+                module:remove(i)
+            end
+        end
+        for i,submodule in ipairs(module.modules) do
+            if torch.typename(submodule):match('nn.SpatialDropout')	then
+                module:remove(i)
+            end
+        end
+    end
 end)
 
 
 if (opt.platform == 'cuda') then
-	model:cuda()
+    model:cuda()
 elseif (opt.platform == 'cudaHalf') then
-	model:cudaHalf()
+    model:cudaHalf()
 end
 
 
@@ -76,30 +76,30 @@ iHeight = tonumber(iHeight)
 local scaledImg
 
 while(1) do
-	--local scaledImg = image.scale(image.load('test.png'),640,360)
-	--scaledImg = nn.utils.addSingletonDimension(scaledImg)
+    --local scaledImg = image.scale(image.load('test.png'),640,360)
+    --scaledImg = nn.utils.addSingletonDimension(scaledImg)
 
-	--print (scaledImg:size())
-	--scaledImg = torch.Tensor(iBatch, iChannel, iHeight, iWidth)
-	--scaledImg:apply(function() return torch.random(0, 255) end)
-	--local scaledImgGPU = scaledImgGPU or torch.CudaHalfTensor(scaledImg:size())
-	--scaledImgGPU:copy(scaledImg)
-	--scaledImg = scaledImgGPU
+    --print (scaledImg:size())
+    --scaledImg = torch.Tensor(iBatch, iChannel, iHeight, iWidth)
+    --scaledImg:apply(function() return torch.random(0, 255) end)
+    --local scaledImgGPU = scaledImgGPU or torch.CudaHalfTensor(scaledImg:size())
+    --scaledImgGPU:copy(scaledImg)
+    --scaledImg = scaledImgGPU
 
-	if (opt.platform == 'cuda') then
-		scaledImg = torch.CudaTensor(iBatch, iChannel, iHeight, iWidth)
-	elseif (opt.platform == 'cudaHalf') then
-		scaledImg = torch.CudaHalfTensor(iBatch, iChannel, iHeight, iWidth)
-	end
+    if (opt.platform == 'cuda') then
+        scaledImg = torch.CudaTensor(iBatch, iChannel, iHeight, iWidth)
+    elseif (opt.platform == 'cudaHalf') then
+        scaledImg = torch.CudaHalfTensor(iBatch, iChannel, iHeight, iWidth)
+    end
 
-	cutorch.synchronize()
-	timer:reset()
+    cutorch.synchronize()
+    timer:reset()
 
-	output = model:forward(scaledImg)
+    output = model:forward(scaledImg)
 
-	cutorch.synchronize()
+    cutorch.synchronize()
 
-	totalTime = timer:time().real
-	print(totalTime)
-	collectgarbage()
+    totalTime = timer:time().real
+    print(totalTime)
+    collectgarbage()
 end
