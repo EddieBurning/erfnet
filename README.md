@@ -1,8 +1,10 @@
 # ERFNet
 
-This code is a toolbox that uses Torch library for training and evaluating the ERFNet architecture. 
+This code is a toolbox that uses Torch library for training and evaluating the ERFNet architecture for semantic segmentation. 
 
 ## **NEW!! New PyTorch version is available [HERE](https://github.com/Eromera/erfnet_pytorch)**
+
+![Example segmentation](example_segmentation.png?raw=true "Example segmentation")
 
 ## Publications
 
