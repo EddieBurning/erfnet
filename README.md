@@ -2,6 +2,8 @@
 
 This code is a toolbox that uses Torch library for training and evaluating the ERFNet architecture. 
 
+**NEW!! New PyTorch code to train and test the model is now available [HERE](https://github.com/Eromera/erfnet_pytorch)**
+
 ## Publications
 
 If you use this software in your research, please cite our publications:
