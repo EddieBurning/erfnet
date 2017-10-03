@@ -39,9 +39,7 @@ end
 data = loadDataset()
 assert(data, "Dataset wasnt loaded correctly (data==nil)")
 
--------------------------------------------------------
 
-t = paths.dofile('loadModel.lua') --load the model
 
 -------------------------------------------------------
 
@@ -57,6 +55,10 @@ optimState = {
     momentum = opt.momentum,
     learningRateDecay = opt.learningRateDecay
 }
+
+-------------------------------------------------------
+
+t = paths.dofile('loadModel.lua') --load the model
 
 --------------------------------------------------------
 --iterate training:
